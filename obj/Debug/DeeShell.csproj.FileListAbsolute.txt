@@ -1,0 +1,9 @@
+C:\Tmp\deeshell-master\SparTask\obj\Debug\SparTask.csprojAssemblyReference.cache
+C:\Tmp\deeshell-master\SparTask\bin\Debug\SparTask.exe
+C:\Tmp\deeshell-master\SparTask\bin\Debug\SparTask.pdb
+C:\Tmp\deeshell-master\SparTask\obj\Debug\SparTask.Properties.Resources.resources
+C:\Tmp\deeshell-master\SparTask\obj\Debug\SparTask.Taskbar.resources
+C:\Tmp\deeshell-master\SparTask\obj\Debug\SparTask.csproj.GenerateResource.cache
+C:\Tmp\deeshell-master\SparTask\obj\Debug\SparTask.csproj.CoreCompileInputs.cache
+C:\Tmp\deeshell-master\SparTask\obj\Debug\SparTask.exe
+C:\Tmp\deeshell-master\SparTask\obj\Debug\SparTask.pdb
