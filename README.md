@@ -25,7 +25,7 @@ This program was made originally from [DeeShell by pravin](https://github.com/pr
 - SparTask uses app's icons from their **.exe**. So Discord icon will not have any notification badges. 
 
 ## Installation:
-- Download from **releases**
+- Download from [releases](https://github.com/GitSparTV/SparTask/releases)
 - Run (administrator required)
 
 ## Notes for manual builders:
