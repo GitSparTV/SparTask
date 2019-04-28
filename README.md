@@ -1,4 +1,9 @@
-![SparTask Banner](SparTaskBanner.png) 
+![SparTask Banner](SparTaskBanner.png)
+[![HitCount](http://hits.dwyl.io/GitSparTV/SparTask.svg)](http://hits.dwyl.io/GitSparTV/SparTask)
+![Badge](https://img.shields.io/github/license/GitSparTV/SparTask.svg)
+![Badge](https://img.shields.io/github/release/GitSparTV/SparTask.svg)
+![Badge](https://img.shields.io/github/last-commit/GitSparTV/SparTask.svg)
+![Badge](https://img.shields.io/github/release-date/GitSparTV/SparTask.svg)
 # Spar Focused Task Bar
 
 A replacement for default Windows shell task bar.
