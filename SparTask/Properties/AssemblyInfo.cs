@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SparTask")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Spar Focused Task Bar")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SparTask")]
-[assembly: AssemblyCopyright("Copyright ©  2007")]
+[assembly: AssemblyCopyright("GPL-3.0")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d98888aa-aa9e-41e5-b67b-7b1b6485efe4")]
+[assembly: Guid("d98888aa-aa9e-41e5-b67b-7b1b6485efe6")]
 
 // Version information for an assembly consists of the following four values:
 //

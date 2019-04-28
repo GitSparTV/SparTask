@@ -27,8 +27,8 @@ using System.ComponentModel;
 
 namespace SparTask
 {
-	public partial class Taskbar : Form
-	{
+    public partial class Taskbar : Form
+    {
 
 
 
@@ -37,26 +37,25 @@ namespace SparTask
         public static object[] SparTaskButtohProc;
 
         public Taskbar()
-		{
-			InitializeComponent();
-			WinAPI.SetWindowPos(this.Handle, IntPtr.Zero, 0, SystemInformation.VirtualScreen.Height - 40, SystemInformation.VirtualScreen.Width, 40, 0x0040);
-            SparTaskUpdateCombo();
+        {
+            InitializeComponent();
+            WinAPI.SetWindowPos(this.Handle, IntPtr.Zero, 0, SystemInformation.VirtualScreen.Height - 40, SystemInformation.VirtualScreen.Width, 40, 0x0040);
+            SparTaskUpdateAppList();
             SparTaskHookUpdate();
         }
 
-        public static void SparTaskUpdateCombo()
+        public static void SparTaskUpdateAppList()
         {
             ArrayList ar = Functions.GetActiveTasks();
             SparTaskButtonInfoTbl = ((ArrayList)ar[0]).ToArray();
             SparTaskButtohProc = ((ArrayList)ar[1]).ToArray();
             Array.Sort(SparTaskButtohProc, SparTaskButtonInfoTbl);
-            //SparTaskButtohWnd = SparTaskButtohWnd.
         }
 
-		private void OnExitClick(object sender, EventArgs e)
-		{
-			Application.Exit();
-		}
+        private void OnExitClick(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
         private void SparTaskAddProgram(object sender, MouseEventArgs e)
         {
@@ -66,7 +65,7 @@ namespace SparTask
                 for (int i = 0; i < SparTaskButtonInfoTbl.Length; i++)
                 {
                     bool create = false;
-                    foreach(Button b in SparTaskButtonTbl) { if (((ArrayList)b.Tag)[1].Equals(((ArrayList)SparTaskButtonInfoTbl[i])[1])) create = true; }
+                    foreach (Button b in SparTaskButtonTbl) { if (((ArrayList)b.Tag)[1].Equals(((ArrayList)SparTaskButtonInfoTbl[i])[1])) create = true; }
                     if (create) continue;
                     var item = new ToolStripMenuItem((string)(((ArrayList)SparTaskButtonInfoTbl[i])[0]));
                     Icon IEIcon = System.Drawing.Icon.ExtractAssociatedIcon(WinAPI.GetProcessPath((IntPtr)(((ArrayList)SparTaskButtonInfoTbl[i])[1])));
@@ -119,8 +118,8 @@ namespace SparTask
                 System.Windows.Forms.ToolTip tt = new System.Windows.Forms.ToolTip();
                 tt.SetToolTip(SparTaskButton, (string)Item[0]);
                 SparTaskButton.MouseUp += this.SparTaskSwitchTo;
-                SparTaskButton.MouseDown += tableLayoutPanel_MouseDown;
-                tableLayoutPanel.Controls.Add(SparTaskButton);
+                SparTaskButton.MouseDown += SparTaskBar_MouseDown;
+                SparTaskBar.Controls.Add(SparTaskButton);
             }
             catch (Exception ex)
             {
@@ -129,42 +128,37 @@ namespace SparTask
             }
         }
 
-            private void SparTaskSwitchTo(object sender, MouseEventArgs e)
-		    {
-                
-                System.Windows.Forms.Button b = (System.Windows.Forms.Button)sender;
-                ArrayList Item = (ArrayList)b.Tag;
-                if (e.Button == MouseButtons.Left)
-                {
-                    WinAPI.SwitchToThisWindow((IntPtr)Item[1], true);
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    var menu = new ContextMenu();
-                    var item2 = new MenuItem("Kill");
-                        menu.MenuItems.Add(item2);
-                        item2.Tag = b;
-                        item2.Click += new EventHandler(this.SparTaskMenuKill);
+        private void SparTaskSwitchTo(object sender, MouseEventArgs e)
+        {
 
-                        var item1 = new MenuItem("Remove");
-                        menu.MenuItems.Add(item1);
-                        item1.Tag = b;
-                        item1.Click += new EventHandler(this.SparTaskMenuRemove);
-
-                        menu.Show(b, new Point(e.X, e.Y));
-                //
+            System.Windows.Forms.Button b = (System.Windows.Forms.Button)sender;
+            ArrayList Item = (ArrayList)b.Tag;
+            if (e.Button == MouseButtons.Left)
+            {
+                WinAPI.SwitchToThisWindow((IntPtr)Item[1], true);
             }
+            else if (e.Button == MouseButtons.Right)
+            {
+                var menu = new ContextMenu();
+                var item2 = new MenuItem("Kill");
+                menu.MenuItems.Add(item2);
+                item2.Tag = b;
+                item2.Click += new EventHandler(this.SparTaskMenuKill);
 
-            
+                var item1 = new MenuItem("Remove");
+                menu.MenuItems.Add(item1);
+                item1.Tag = b;
+                item1.Click += new EventHandler(this.SparTaskMenuRemove);
 
-                //
+                menu.Show(b, new Point(e.X, e.Y));
             }
+        }
 
         private void SparTaskMenuRemove(object sender, EventArgs e)
         {
             System.Windows.Forms.MenuItem item = (System.Windows.Forms.MenuItem)sender;
             System.Windows.Forms.Button b = (System.Windows.Forms.Button)item.Tag;
-            tableLayoutPanel.Controls.Remove(b);
+            SparTaskBar.Controls.Remove(b);
         }
         private void SparTaskMenuKill(object sender, EventArgs e)
         {
@@ -177,18 +171,12 @@ namespace SparTask
                 WinAPI.GetWindowThreadProcessId((IntPtr)Item[1], out pid);
                 System.Diagnostics.Process proc = System.Diagnostics.Process.GetProcessById((int)pid); //Gets the process by ID. 
                 proc.Kill();
-                tableLayoutPanel.Controls.Remove(b);
+                SparTaskBar.Controls.Remove(b);
             }
             catch
             {
                 Console.Beep();
             }
-
-        }
-
-
-        private void TableLayoutPanel_Paint(object sender, PaintEventArgs e)
-        {
 
         }
 
@@ -208,28 +196,21 @@ namespace SparTask
             stopWatch.Start();
         }
 
-        public void SparTaskHookRemoveButton(object sender, EventArgs e,System.Windows.Forms.Button button)
+        public void SparTaskHookRemoveButton(object sender, EventArgs e, System.Windows.Forms.Button button)
         {
-            //try
-            //{
             if (button.InvokeRequired)
             {
-                button.Invoke(new Action( () => this.tableLayoutPanel.Controls.Remove(button) ));
+                button.Invoke(new Action(() => this.SparTaskBar.Controls.Remove(button)));
             }
             else
             {
-                this.tableLayoutPanel.Controls.Remove(button);
+                this.SparTaskBar.Controls.Remove(button);
             }
-
-            //}
-            //catch
-            //{
-            //}
         }
 
         public static void SparTaskHookProcessUpdate(object sender, EventArrivedEventArgs e)
         {
-            SparTaskUpdateCombo();
+            SparTaskUpdateAppList();
         }
     }
 }

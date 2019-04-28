@@ -1,10 +1,19 @@
-/* DeeShell - A shell replacement for Windows
+/* ORIGINAL CREDITS
+ * 
+ * DeeShell - A shell replacement for Windows
  * Pravin Paratey (February 19, 2007)
  * 
- * Article: http://www.dustyant.com/articles/
+ * Article: http://www.dustyant.com/articles/deeshell
  * 
  * Released under Creative Commons Attribution 2.5 Licence
  * http://creativecommons.org/licenses/by/2.5/
+ */
+
+/* Spar Focused Task Bar (SparTask) (SFTB)
+ * 
+ * Rebuild and modded by Spar
+ * 
+ * GNU General Public License v3.0
  */
 using System;
 using System.Text;
@@ -22,7 +31,6 @@ namespace SparTask
             public int bottom;
         }
 
-        /// <summary>For ShowWindow</summary>
         public enum WindowShowStyle : int
         {
             Hide = 0,
@@ -40,7 +48,6 @@ namespace SparTask
             ForceMinimized = 11
         }
 
-        /// <summary>For SystemParametersInfo</summary>
         public enum SPI : int
         {
             SPI_SETWORKAREA = 0x002F,
@@ -58,15 +65,10 @@ namespace SparTask
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
-        public static extern void SwitchToThisWindow(IntPtr hwnd,bool fUnknown);
+        public static extern void SwitchToThisWindow(IntPtr hwnd, bool fUnknown);
 
         [DllImport("user32.dll")]
-        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X,
-            int Y, int cx, int cy, uint uFlags);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
@@ -94,49 +96,19 @@ namespace SparTask
         [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
         public static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);
 
-
         public static string GetProcessPath(IntPtr hwnd)
         {
             try
             {
                 uint pid = 0;
                 GetWindowThreadProcessId(hwnd, out pid);
-                System.Diagnostics.Process proc = System.Diagnostics.Process.GetProcessById((int)pid); //Gets the process by ID. 
-                return proc.MainModule.FileName.ToString();    //Returns the path. 
+                System.Diagnostics.Process proc = System.Diagnostics.Process.GetProcessById((int)pid);
+                return proc.MainModule.FileName.ToString();
             }
             catch (Exception ex)
             {
                 return ex.Message.ToString();
             }
-        }
-
-        [DllImport("user32.dll", EntryPoint = "FindWindowEx",CharSet = CharSet.Auto)]
-            static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
-
-        public static System.Collections.ArrayList GetAllChildrenWindowHandles(IntPtr hParent,int maxCount)
-        {
-            System.Collections.ArrayList result = new System.Collections.ArrayList();
-            int ct = 0;
-            IntPtr prevChild = IntPtr.Zero;
-            IntPtr currChild = IntPtr.Zero;
-            while (true && ct < maxCount)
-            {
-                currChild = FindWindowEx(hParent, prevChild, null, null);
-                if (currChild == IntPtr.Zero) break;
-                result.Add(currChild);
-                prevChild = currChild;
-                ++ct;
-            }
-            return result;
-        }
-
-        public static void ActivateApp(string processName)
-        {
-            System.Diagnostics.Process[] p = System.Diagnostics.Process.GetProcessesByName(processName);
-
-            // Activate the first application we find with this name
-            if (p.Length > 0)
-                SetForegroundWindow(p[0].MainWindowHandle);
         }
 
         [DllImport("user32.dll")]
