@@ -3,7 +3,8 @@
 
 A replacement for default Windows shell task bar.
 
-Main idea: Leave windows you want for now. No needs in searching for needed window in Alt+Tab, just add icon when you need it and remove when done.
+## Main idea
+Leave windows you want for now. No needs in searching for needed window in Alt+Tab, just add icon when you need it and remove when done.
 
 This program was made originally from [DeeShell by pravin](https://github.com/pravin/deeshell)
 
