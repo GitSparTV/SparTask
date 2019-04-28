@@ -52,6 +52,16 @@ namespace SparTask
             Array.Sort(SparTaskButtohProc, SparTaskButtonInfoTbl);
         }
 
+        private void ButtonExit_MouseClick(object sender, MouseEventArgs e)
+        {
+            var menu = new ContextMenu();
+            var item1 = new MenuItem("Close");
+            menu.MenuItems.Add(item1);
+            item1.Click += new EventHandler(this.OnExitClick);
+
+            menu.Show(ButtonExit, new Point(e.X, e.Y));
+        }
+
         private void OnExitClick(object sender, EventArgs e)
         {
             Application.Exit();

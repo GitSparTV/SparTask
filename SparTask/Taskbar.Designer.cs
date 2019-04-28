@@ -106,7 +106,7 @@ namespace SparTask
             this.ButtonExit.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255);
             this.ButtonExit.FlatStyle = FlatStyle.Flat;
             this.ButtonExit.FlatAppearance.BorderSize = 0;
-            this.ButtonExit.Click += new System.EventHandler(this.OnExitClick);
+            this.ButtonExit.MouseClick += this.ButtonExit_MouseClick;
 
             this.ButtonHideAll = new System.Windows.Forms.Button();
             this.ButtonHideAll.Location = new System.Drawing.Point(SystemInformation.VirtualScreen.Width - 15, 0);
@@ -214,11 +214,13 @@ namespace SparTask
             }
             if (this.LabelLang.InvokeRequired)
             {
-                this.LabelLang.BeginInvoke(new Action(() => this.LabelLang.Text = WinAPI.GetCurrentCulture().ThreeLetterWindowsLanguageName.ToUpper().Remove(2, 1)));
+                var cult = WinAPI.GetCurrentCulture();
+                if (!cult.Equals(IntPtr.Zero)) this.LabelLang.BeginInvoke(new Action(() => this.LabelLang.Text = WinAPI.GetCurrentCulture().ThreeLetterWindowsLanguageName.ToUpper().Remove(2, 1)));
             }
             else
             {
-                this.LabelLang.Text = WinAPI.GetCurrentCulture().ThreeLetterWindowsLanguageName.ToUpper().Remove(2, 1);
+                var cult = WinAPI.GetCurrentCulture();
+                if (!cult.Equals(IntPtr.Zero)) this.LabelLang.Text = WinAPI.GetCurrentCulture().ThreeLetterWindowsLanguageName.ToUpper().Remove(2, 1);
             }
 
         }
