@@ -3,7 +3,7 @@
  * DeeShell - A shell replacement for Windows
  * Pravin Paratey (February 19, 2007)
  * 
- * Article: http://www.dustyant.com/articles/deeshell
+ * https://github.com/pravin/deeshell
  * 
  * Released under Creative Commons Attribution 2.5 Licence
  * http://creativecommons.org/licenses/by/2.5/
