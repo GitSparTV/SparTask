@@ -33,3 +33,6 @@ This program was made originally from [DeeShell by pravin](https://github.com/pr
 - .NET 4
 - My screen is 2560 in width so check width settings if you have something wrong
 - References: PresentationCore, System, System.Data, System.Drawing, System.Management, System.Windows.Forms, WindowsBase
+
+## Demo
+![Demo](SparTaskDemo.gif) 
