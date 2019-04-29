@@ -19,6 +19,7 @@ This program was made originally from [DeeShell by pravin](https://github.com/pr
 - Switch to app
 - Rearrange icons positions (Shift + LMB)
 - Remove app from SparTask (RMB)
+- Close app (RMB)
 - Kill app (RMB)
 - Time and date
 - Language display
