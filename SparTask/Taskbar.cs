@@ -107,6 +107,7 @@ namespace SparTask
             try
             {
                 Icon IEIcon = System.Drawing.Icon.ExtractAssociatedIcon(WinAPI.GetProcessPath((IntPtr)Item[1]));
+
                 System.Windows.Forms.Button SparTaskButton = new System.Windows.Forms.Button();
                 SparTaskButtonTbl.Add(SparTaskButton);
                 Image im = IEIcon.ToBitmap();
@@ -150,15 +151,20 @@ namespace SparTask
             else if (e.Button == MouseButtons.Right)
             {
                 var menu = new ContextMenu();
-                var item2 = new MenuItem("Kill");
-                menu.MenuItems.Add(item2);
-                item2.Tag = b;
-                item2.Click += new EventHandler(this.SparTaskMenuKill);
-
-                var item1 = new MenuItem("Remove");
+                var item1 = new MenuItem("Kill");
                 menu.MenuItems.Add(item1);
                 item1.Tag = b;
-                item1.Click += new EventHandler(this.SparTaskMenuRemove);
+                item1.Click += this.SparTaskMenuKill;
+
+                var item2 = new MenuItem("Close");
+                menu.MenuItems.Add(item2);
+                item2.Tag = b;
+                item2.Click += this.SparTaskMenuClose;
+
+                var item3 = new MenuItem("Remove");
+                menu.MenuItems.Add(item3);
+                item3.Tag = b;
+                item3.Click += this.SparTaskMenuRemove;
 
                 menu.Show(b, new Point(e.X, e.Y));
             }
@@ -169,6 +175,15 @@ namespace SparTask
             System.Windows.Forms.MenuItem item = (System.Windows.Forms.MenuItem)sender;
             System.Windows.Forms.Button b = (System.Windows.Forms.Button)item.Tag;
             SparTaskBar.Controls.Remove(b);
+        }
+
+        private void SparTaskMenuClose(object sender, EventArgs e)
+        {
+            System.Windows.Forms.MenuItem item = (System.Windows.Forms.MenuItem)sender;
+            System.Windows.Forms.Button b = (System.Windows.Forms.Button)item.Tag;
+            ArrayList Item = (ArrayList)b.Tag;
+
+            WinAPI.SendMessageTimeout((IntPtr)Item[1], 0x0010, IntPtr.Zero, IntPtr.Zero);
         }
         private void SparTaskMenuKill(object sender, EventArgs e)
         {
@@ -181,7 +196,6 @@ namespace SparTask
                 WinAPI.GetWindowThreadProcessId((IntPtr)Item[1], out pid);
                 System.Diagnostics.Process proc = System.Diagnostics.Process.GetProcessById((int)pid); //Gets the process by ID. 
                 proc.Kill();
-                SparTaskBar.Controls.Remove(b);
             }
             catch
             {
