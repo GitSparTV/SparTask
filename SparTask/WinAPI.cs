@@ -116,8 +116,11 @@ namespace SparTask
 
         public static System.Globalization.CultureInfo GetCurrentCulture()
         {
-            var l = GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
-            return new System.Globalization.CultureInfo((short)l.ToInt64());
+            IntPtr foregroundWindow = GetForegroundWindow();
+            uint foregroundProcess = GetWindowThreadProcessId(foregroundWindow, IntPtr.Zero);
+            int keyboardLayout = GetKeyboardLayout(foregroundProcess).ToInt32() & 0xFFFF;
+            if (keyboardLayout == 0) return new System.Globalization.CultureInfo(1033);
+            return new System.Globalization.CultureInfo(keyboardLayout);
         }
 
         [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]

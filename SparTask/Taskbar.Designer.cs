@@ -215,12 +215,12 @@ namespace SparTask
             if (this.LabelLang.InvokeRequired)
             {
                 var cult = WinAPI.GetCurrentCulture();
-                if (!cult.Equals(IntPtr.Zero)) this.LabelLang.BeginInvoke(new Action(() => this.LabelLang.Text = WinAPI.GetCurrentCulture().ThreeLetterWindowsLanguageName.ToUpper().Remove(2, 1)));
+                if (!cult.Equals(IntPtr.Zero)) this.LabelLang.BeginInvoke(new Action(() => this.LabelLang.Text = cult.ThreeLetterWindowsLanguageName.ToUpper().Remove(2, 1)));
             }
             else
             {
                 var cult = WinAPI.GetCurrentCulture();
-                if (!cult.Equals(IntPtr.Zero)) this.LabelLang.Text = WinAPI.GetCurrentCulture().ThreeLetterWindowsLanguageName.ToUpper().Remove(2, 1);
+                if (!cult.Equals(IntPtr.Zero)) this.LabelLang.Text = cult.ThreeLetterWindowsLanguageName.ToUpper().Remove(2, 1);
             }
 
         }

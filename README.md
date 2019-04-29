@@ -22,7 +22,7 @@ This program was made originally from [DeeShell by pravin](https://github.com/pr
 - Close app (RMB)
 - Kill app (RMB)
 - Time and date
-- Language display
+- Language indicator
 - Minimize/Unminimize all
 - If app was closed icon will be removed too
 
@@ -30,6 +30,7 @@ This program was made originally from [DeeShell by pravin](https://github.com/pr
 - Some non-windowed apps can be in a list (idk how to get rid of them, why does Calculator run on my PC when I didn't opened it)
 - You won't see the icons from right side of legacy task bar (Wi-Fi icon, Notification panel, Calendar, Flash drive remove, etc)
 - SparTask uses app's icons from their **.exe**. So Discord icon will not have any notification badges. 
+- Sometimes language indicator will show **EN**. That's because he is unable to get that info. (From cmd.exe for example)
 
 ## Installation:
 - Download from [releases](https://github.com/GitSparTV/SparTask/releases)
